@@ -47,7 +47,7 @@ class PoseTracking():
                          h,w,c = img.shape
                          
                          for id,lm in enumerate(poseLms):
-                           cx,cy = int(lm.x+w),int(lm.y+h)
+                           cx,cy = int(lm.x*w),int(lm.y*h)
                            self.lmlist.append([id,cx,cy])
                            
                            if draw:
