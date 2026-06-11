@@ -62,6 +62,28 @@ class PoseTracking():
                   return img,self.lmlist
                   
                   
+           def FindAngel(self,img,p1,p2,p3,draw=True,position = (50,70)):
+                
+                x1,y1 = self.lmlist[p1][1:]
+                x2,y2 = self.lmlist[p2][1:]
+                x3,y3 = self.lmlist[p3][1:]
+
+                angel = math.degrees(math.atan2(y3-y2,x3-x2)-math.atan2(y1-y2,x1-x2))
+
+                if angel < 0:
+                     angel += 360
+                if angel > 360:
+                     angel = 360 - angel
+                
+                cv2.putText(img,f"Angle:{int(angel)}",position,cv2.FONT_HERSHEY_PLAIN,3,(0,0,0),3)
+                if draw:
+                     cv2.circle(img,(x1,y1),3,(255,0,255),3)
+                     cv2.circle(img,(x2,y2),3,(255,0,255),3)
+                     cv2.circle(img,(x3,y3),3,(255,0,255),3)
+
+                return img,angel
+                
+
            def FPS(self,img):
                self.cTime = time.time()
                fps = 1/(self.cTime - self.pTime)
